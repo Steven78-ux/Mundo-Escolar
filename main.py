@@ -68,14 +68,14 @@ def maximizar_ventana():
 root.after(0, maximizar_ventana)
 root.configure(fg_color=COLORS["bg"])
 
-#Progreso inicial del usuario en cada materia (puedes ajustar estos valores para probar la vista de progreso y logros)
+# Progreso inicial del usuario en cada materia (puedes ajustar estos valores para probar la vista de progreso y logros)
 ESTADO_USUARIO = {
     "materias": {
         "Lectura y Escritura": 0.0,
         "Ajedrez": 0.0,
         "Juego de Palabras": 0.0,
         "Computación": 0.0,
-        "Deportes": 0.0,
+        "Robotica": 0.0,
         "Dibujo": 0.0,
     }
 }
@@ -121,11 +121,13 @@ def lanzar_computacion():
     except Exception as e:
         print(f"Error al iniciar computación: {e}")
 
+
 def lanzar_dibujo():
     try:
         abrir_dibujo(root)
     except Exception as e:
         print(f"Error al iniciar dibujo: {e}")
+
 
 # ---------------- UTILIDADES ---------------- #
 def limpiar_panel():
@@ -160,7 +162,7 @@ def vista_temas():
     contenedor_colores = ctk.CTkFrame(principal, fg_color="transparent")
     contenedor_colores.pack(expand=True)
 
-# Paleta de colores para los temas 
+    # Paleta de colores para los temas
     paletas = [
         ("Azul Clásico", "#4DA3FF", "#3C5179"),
         ("Verde Lima", "#A2D149", "#7BA330"),
@@ -195,40 +197,82 @@ def vista_temas():
             col = 0
             fila += 1
 
-# Sistema de propreso 
+
+# Sistema de propreso
 def vista_progreso():
     limpiar_panel()
+
+    # Título con un poco más de margen
     ctk.CTkLabel(
         principal,
-        text="MI PROGRESO",
+        text="🚀 MI CAMINO AL ÉXITO",
         text_color=COLORS["text_dark"],
         font=FONTS["titulo"],
-    ).pack(pady=40)
-    contenedor = ctk.CTkFrame(principal, fg_color="transparent")
-    contenedor.pack(fill="both", expand=True, padx=80)
+    ).pack(pady=(40, 20))
+
+    # Contenedor con scroll por si añades más materias
+    contenedor = ctk.CTkScrollableFrame(
+        principal, fg_color="transparent", width=900, height=600
+    )
+    contenedor.pack(fill="both", expand=True, padx=100, pady=20)
+
+    # Diccionario de iconos para que se vea divertido
+    iconos = {
+        "Lectura y Escritura": "📚",
+        "Ajedrez": "♟️",
+        "Juego de Palabras": "🔤",
+        "Computación": "💻",
+        "Robotica": "🤖",
+        "Dibujo": "🎨",
+    }
 
     def animar_barra(barra, label, objetivo, actual=0):
         if actual <= objetivo:
             barra.set(actual)
             label.configure(text=f"{int(actual * 100)}%")
-            root.after(10, lambda: animar_barra(barra, label, objetivo, actual + 0.01))
+            root.after(15, lambda: animar_barra(barra, label, objetivo, actual + 0.01))
 
     for nombre, valor in ESTADO_USUARIO["materias"].items():
-        f = ctk.CTkFrame(contenedor, fg_color="white", corner_radius=20, height=70)
-        f.pack(fill="x", pady=10)
-        f.pack_propagate(False)
-        ctk.CTkLabel(f, text=nombre, font=FONTS["botones"], text_color="#333").pack(
-            side="left", padx=25
+        # Tarjeta para cada materia
+        card = ctk.CTkFrame(
+            contenedor,
+            fg_color="white",
+            corner_radius=25,
+            border_width=2,
+            border_color="#F0F0F0",
         )
+        card.pack(fill="x", pady=12, padx=10)
+
+        # Icono y Nombre
+        icono = iconos.get(nombre, "⭐")
+        lbl_nombre = ctk.CTkLabel(
+            card,
+            text=f"{icono} {nombre}",
+            font=(FONT_NAME, 22, "bold"),
+            text_color="#333",
+        )
+        lbl_nombre.pack(side="left", padx=(30, 20), pady=20)
+
+        # Contenedor derecho para porcentaje
         lbl_pct = ctk.CTkLabel(
-            f, text="0%", font=(FONT_NAME, 16, "bold"), text_color=COLORS["sidebar"]
+            card,
+            text="0%",
+            font=(FONT_NAME, 20, "bold"),
+            text_color=COLORS["progress_fill"],
         )
-        lbl_pct.pack(side="right", padx=25)
+        lbl_pct.pack(side="right", padx=30)
+
+        # Barra de progreso estilizada
         pb = ctk.CTkProgressBar(
-            f, progress_color=COLORS["sidebar"], fg_color="#E0E0E0", height=12
+            card,
+            progress_color=COLORS["progress_fill"],
+            fg_color=COLORS["progress_bg"],
+            height=18,
+            corner_radius=10,
         )
         pb.set(0)
         pb.pack(side="left", fill="x", expand=True, padx=20)
+
         animar_barra(pb, lbl_pct, valor)
 
 
@@ -272,9 +316,9 @@ def vista_logros():
             "#CD7F32",
         ),
         (
-            "Novato Deportivo",
-            "Completaste 25% de Deportes.",
-            "Deportes",
+            "Novato en Robotica",
+            "Completaste 25% de Robotica.",
+            "Robotica",
             0.25,
             "#CD7F32",
         ),
@@ -302,9 +346,9 @@ def vista_logros():
             "#C0C0C0",
         ),
         (
-            "Deportista en Progreso",
-            "Completaste 50% de Deportes.",
-            "Deportes",
+            "Aprendiz de Robotica",
+            "Completaste 50% de Robotica.",
+            "Robotica",
             0.50,
             "#C0C0C0",
         ),
@@ -333,8 +377,8 @@ def vista_logros():
         ),
         (
             "Atleta Estrella",
-            "Finalizaste Deportes al máximo.",
-            "Deportes",
+            "Finalizaste Robotica al máximo.",
+            "Robotica",
             1.0,
             "#FFD700",
         ),
@@ -482,7 +526,7 @@ def vista_inicio():
         ("AJEDREZ", COLORS["card2"], "ajedrez.gif", 3, 1),
         ("JUEGO DE PALABRAS", COLORS["card3"], "palabras.gif", 3, 2),
         ("COMPUTACIÓN", COLORS["card4"], "computacion.gif", 4, 0),
-        ("DEPORTES", COLORS["card5"], "deportes.gif", 4, 1),
+        ("ROBOTICA", COLORS["card5"], "robotica.gif", 4, 1),
         ("DIBUJO", COLORS["card6"], "ciencias.gif", 4, 2),
     ]
 

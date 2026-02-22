@@ -1,0 +1,7 @@
+!Falta por Terminar!
+Mejorar la interfaz
+crear el menu principal del ajedrez
+mejorar el panel lateral
+mejorar el sistema de logros 
+ 
+

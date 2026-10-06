@@ -1,0 +1,33 @@
+notas.txt
+core/data/usuarios/*.json
+logs/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+build/
+dist/
+*.egg-info/
+
+# Logs
+*.log
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+
+# Operating systems
+.DS_Store
+Thumbs.db
+
+# Packaging
+packaging/*.deb
+*.AppImage
+
+# Binarios pesados de Stockfish (descargar aparte, ver README)
+modulos/Ajedrez/assets/stockfish/
+modulos/Ajedrez/assets/stockfish linux/
+modulos/Ajedrez/assets/stockfish-linux/

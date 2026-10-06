@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Mundo Escolar
+Comment=Aprende jugando
+Exec=/usr/bin/mundo-escolar
+Icon=/usr/share/mundo-escolar/assets/imagenes/Logo.png
+Terminal=false
+Type=Application
+Categories=Education;Game;
+Keywords=educacion;niños;ajedrez;computacion;
+StartupNotify=true

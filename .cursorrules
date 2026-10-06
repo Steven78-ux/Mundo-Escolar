@@ -1,0 +1,32 @@
+# Proyecto: Mundo Escolar
+
+## Contexto
+Plataforma educativa de escritorio en Python para estudiantes de 1° a 6° grado.
+5 módulos: Lenguaje, Ajedrez, Computación, Robótica, Dibujo.
+
+## Arquitectura
+- Hub-and-spoke: (Arquitectura por capas) `main.py` (shell) + `core/` (servicios) + `modulos/` (spokes)
+- Contrato obligatorio de cada módulo:
+  `def crear_frame(parent, on_back_callback) -> CTkFrame`
+- Patrón Factory: `core/module_factory.py` → `get_module_frame(subject_id, parent, on_back)`
+- Patrón Singleton: `core/gestor_estado.py`, `core/module_manager.py`
+- Persistencia: JSON en `core/data/usuarios/{nombre}.json`
+
+## Convenciones de código
+- Python 3.10+
+- PEP 8
+- Nombres de módulos educativos en español (`vistas/`, `dominio/`, `servicios/`)
+- Nombres de infraestructura en inglés (`core/`, `services/`, `domain/`)
+- No romper el contrato `crear_frame` existente
+- No añadir dependencias nuevas sin justificar
+
+## Reglas estrictas
+- NUNCA modificar el contrato `crear_frame(parent, on_back_callback)`
+- NUNCA añadir `print()`; usar `logging`
+- NUNCA hardcodear rutas absolutas; usar `pathlib` y rutas relativas al proyecto
+- NUNCA tocar archivos en `core/data/usuarios/` (datos personales)
+- SIEMPRE escribir tests antes de refactorizar lógica de dominio
+- SIEMPRE verificar que el proyecto arranca después de cambios
+
+## Estilo de commits
+- Conventional Commits: `feat:`, `fix:`, `docs:`, `test:`, `chore:`, `refactor:`

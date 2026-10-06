@@ -1,0 +1,7 @@
+# Dependencias base para ejecutar Mundo Escolar
+customtkinter
+tkextrafont
+Pillow
+pygame
+pandas
+

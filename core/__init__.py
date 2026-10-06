@@ -1,0 +1,2 @@
+"""Inicializador del paquete núcleo."""
+
